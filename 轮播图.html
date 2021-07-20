@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#container{
+			width: 1200px;
+			height: 500px;
+			position: relative;
+			margin: 50px auto;
+		}
+		.picture-active{
+			z-index: 1;
+		}
+		.picture,.picture-active{
+			width: 1200px;
+			height: 500px;
+			background-color: brown;
+			position: absolute;
+			overflow: hidden;
+		}
+		#dot{
+			position: absolute;
+			top:400px;
+			left: 300px;
+			z-index: 2;
+		}
+		ul{
+			width: 600px;
+			height: auto;
+			display: flex;
+			justify-content: space-around;
+		}
+		li{
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background-color: #333333;
+			text-align: center;
+			list-style: none;
+			cursor: pointer;
+		}
+		button{
+			width: 50px;
+			height: 60px;
+			background-color: #333333;
+			position: absolute;
+			top:225px;
+			z-index: 2;
+		}
+		#prev{
+			position: absolute;
+			
+		}
+		#next{
+			position: absolute;
+			left: 1150px;
+		}
+		.dot1-active{
+			background-color: #aaaa7f;
+			
+		}
+		img{
+			width: 1200px;
+			height: 500px;
+		}
+	</style>
+	<body>
+		<div id="container">
+			<div id="banner">
+				<div class="picture-active"><img src="00f72427f372505f5d6be472e295b1c3.jpeg"></div>
+				<div class="picture"><img src="4d96f90063160390d92a1bef2463ddad.jpeg"></div>
+				<div class="picture"><img src="32ce3d36e6dea633faa9477dac7a5509.jpeg"></div>
+				<div class="picture"><img src="70e6071c4906e8eb5bcc5c58247845db.jpeg"></div>
+				<div class="picture"><img src="2574aaeea6280d9f387efb8e8637dac2.jpeg"></div>
+			</div>
+			<div id="dot">
+				<ul>
+					<li class="dot1-active">1</li>
+					<li class="dot1">2</li>
+					<li class="dot1">3</li>
+					<li class="dot1">4</li>
+					<li class="dot1">5</li>
+				</ul>
+			</div>
+			<div id="lun">
+				<button id="prev"><</button>
+				<button id="next">></button>
+			</div>
+		</div>
+	</body>
+		<script>
+			window.onload=function(){
+				var mian=document.getElementById("mian")
+				var prev=document.getElementById("prev");
+				var next=document.getElementById("next");
+				var pic=document.getElementById("banner").getElementsByTagName("div");
+				var dot=document.getElementById("dot").getElementsByTagName("li");	
+				var index=0;
+				next.onclick=function(){
+					if(index<4){
+						index++;
+					}else{
+						index=0;
+					}
+					for(var i=0;i<pic.length;i++){
+						pic[i].style.display="none";
+						pic[i].className="picture";
+					}					
+					pic[index].className="picture-active";	
+					pic[index].style.display="block";
+					for(var i=0;i<dot.length;i++){
+						dot[i].className="doct1";
+						dot[i].style.backgroundColor="#333333";
+					}
+						dot[index].className="doct1-active";
+						dot[index].style.backgroundColor="#aaaa7f";
+				}
+				prev.onclick=function(){
+					if(index==0){
+						index=4;
+					}else{
+						index--;
+					}
+					for(var i=0;i<pic.length;i++){
+
+						pic[i].style.display="none";
+						pic[i].className="picture";
+					}					
+					pic[index].className="picture-active";	
+					pic[index].style.display="block";
+					for(var i=0;i<dot.length;i++){
+						dot[i].className="doct1";
+						dot[i].style.backgroundColor="#333333";
+					}
+						dot[index].className="doct1-active";
+						dot[index].style.backgroundColor="#aaaa7f";				
+				}
+				for(var j=0;j<dot.length;j++){
+					//在开始前，我们需要知道，函数是可以独立作用域之外的。
+					dot[j].index=j;//为所以dot属性添加id，分别为0，1，2，3，4。
+					//不太推荐使用这样，毕竟id名字取数字开头不好，不太合规矩。
+						dot[j].onclick = function(){
+							index = this.index;//(引用id的是dot,及dot的id);
+							for(var i=0;i<pic.length;i++){	
+							pic[i].style.display="none";
+							pic[i].className="picture";
+						}					
+							pic[index].className="picture-active";	
+							pic[index].style.display="block";
+							for(var i=0;i<dot.length;i++){
+							dot[i].className="doct1";
+							dot[i].style.backgroundColor="#333333";
+						}
+							dot[index].className="doct1-active";
+							dot[index].style.backgroundColor="#aaaa7f";
+						}
+
+					}
+					var timer=setInterval(next.onclick, 2000);
+					
+				
+}
+
+			
+		</script>
+</html>
